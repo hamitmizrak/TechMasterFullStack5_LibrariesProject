@@ -3,9 +3,7 @@ package com.hamitmizrak.utils;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -43,14 +41,15 @@ public class FilePathData {
                 System.out.println(path + " Böyle bir dosya adı zaten var tekrardan oluşturulmadı !!!");
             }
             // dosyaya default 4 hak verildi.
-            fileRemainingNumber();
+            fileWriterRemainingNumber();
+            System.out.println("Kalan hak: "+fileReaderRemainingNumber());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     // FileWriter
-    private void fileRemainingNumber() {
+    private void fileWriterRemainingNumber() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.path, false))) {
             bufferedWriter.write("4");
             bufferedWriter.flush();
@@ -60,6 +59,22 @@ public class FilePathData {
     }
 
     // FileReader
+    private Integer fileReaderRemainingNumber() {
+        String rows; // okunan satır
+        Integer numberOfRights = null; //kalan hak sayısı
+        String readRows;
+        StringBuilder stringBuilder=new StringBuilder();
+        try(BufferedReader bufferedReader=new BufferedReader(new FileReader(this.path))) {
+            while( (rows=bufferedReader.readLine())!=null ){
+                stringBuilder.append(rows);
+            }
+            readRows=stringBuilder.toString();
+            numberOfRights=Integer.valueOf(readRows);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return numberOfRights;
+    }
 
     public static void main(String[] args) {
         FilePathData filePathData = new FilePathData();
