@@ -1,9 +1,15 @@
 package com.hamitmizrak.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+
+// LOMBOK
+@Getter
+@Setter
 
 // RegisterDto
 public class RegisterDto extends  BaseDto implements Serializable {
@@ -43,31 +49,5 @@ public class RegisterDto extends  BaseDto implements Serializable {
                 ", id=" + id +
                 ", systemCreatedDate=" + systemCreatedDate +
                 "} " + super.toString();
-    }
-
-
-    //Getter And Setter
-    public String getuNickName() {
-        return uNickName;
-    }
-
-    public void setuNickName(String uNickName) {
-        this.uNickName = uNickName;
-    }
-
-    public String getuEmailAddress() {
-        return uEmailAddress;
-    }
-
-    public void setuEmailAddress(String uEmailAddress) {
-        this.uEmailAddress = uEmailAddress;
-    }
-
-    public String getuPassword() {
-        return uPassword;
-    }
-
-    public void setuPassword(String uPassword) {
-        this.uPassword = uPassword;
     }
 } //end  class
