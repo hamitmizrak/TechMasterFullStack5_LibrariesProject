@@ -24,6 +24,15 @@ public class BaseDto implements Serializable {
         this.systemCreatedDate = systemCreatedDate;
     }
 
+    // toString
+    @Override
+    public String toString() {
+        return "BaseDto{" +
+                "id=" + id +
+                ", systemCreatedDate=" + systemCreatedDate +
+                '}';
+    }
+
     // Getter And Setter
     public Long getId() {
         return id;

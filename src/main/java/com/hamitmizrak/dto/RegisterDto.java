@@ -11,4 +11,10 @@ public class RegisterDto extends  BaseDto implements Serializable {
     private String uNickName;
     private String uEmailAddress;
     private String uPassword;
-}
+
+    // Constructor
+
+    // toString
+
+    //Getter And Setter
+} //end  class
