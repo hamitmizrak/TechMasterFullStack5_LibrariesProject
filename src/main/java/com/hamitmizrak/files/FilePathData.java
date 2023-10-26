@@ -1,8 +1,7 @@
-package com.hamitmizrak.utils;
+package com.hamitmizrak.files;
 
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
-
 import java.io.*;
 import java.util.Date;
 import java.util.UUID;
@@ -77,8 +76,8 @@ public class FilePathData {
     }
 
     public static void main(String[] args) {
-        FilePathData filePathData = new FilePathData();
-        System.out.println(filePathData);
+        //FilePathData filePathData = new FilePathData();
+        //System.out.println(filePathData);
     }
 } //end class
 

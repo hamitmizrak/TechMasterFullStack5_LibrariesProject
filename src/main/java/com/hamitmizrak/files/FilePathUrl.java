@@ -1,4 +1,4 @@
-package com.hamitmizrak.utils;
+package com.hamitmizrak.files;
 
 public class FilePathUrl {
 

@@ -1,12 +1,9 @@
 package com.hamitmizrak.dto;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Date;
-
+// 1 1 8 2
 // LOMBOK
 @Getter
 @Setter
