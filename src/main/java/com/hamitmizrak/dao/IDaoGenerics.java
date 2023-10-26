@@ -1,6 +1,7 @@
 package com.hamitmizrak.dao;
 
 import com.hamitmizrak.database.DatabaseConnection;
+import com.hamitmizrak.dto.RegisterDto;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public interface IDaoGenerics <T> {
     public T update(Long id,T t);
 
     // DELETE
-    public T delete(Long id);
+    public T delete(RegisterDto registerDto );
 
     ////////////////////////////////////////
     // interface Gövdeli yapmak istiyorsak; default yazacağız.

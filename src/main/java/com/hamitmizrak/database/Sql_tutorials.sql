@@ -45,3 +45,9 @@ SELECT * FROM libraries.register;
 select count(*) from `libraries`.`register`;
 
 -- LIKE --
+select * from `libraries`.`register`;
+select * from `libraries`.`register` where id=2;
+select * from `libraries`.`register` where nick_name like 'c%'; -- c harfiyle başladı
+select * from `libraries`.`register` where nick_name like 'b%' or email_address like 'da%';
+select * from `libraries`.`register` where nick_name like '%4'; -- 4 ile bitti
+select * from `libraries`.`register` where nick_name like '_o%'; -- ikinci karakter o olanlar

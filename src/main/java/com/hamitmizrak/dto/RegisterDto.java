@@ -12,7 +12,6 @@ public class RegisterDto extends  BaseDto implements Serializable {
     private String uNickName;
     private String uEmailAddress;
     private String uPassword;
-
     private int remainingNumber;
     private Boolean isPassive;
 

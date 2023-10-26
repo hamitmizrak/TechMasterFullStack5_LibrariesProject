@@ -41,7 +41,7 @@ public class RegisterController  implements IDaoGenerics<RegisterDto> {
     }
 
     @Override
-    public RegisterDto delete(Long id) {
+    public RegisterDto delete(RegisterDto registerDto) {
         return null;
     }
 }
