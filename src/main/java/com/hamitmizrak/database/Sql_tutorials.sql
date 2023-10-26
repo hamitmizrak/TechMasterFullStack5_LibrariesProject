@@ -31,9 +31,6 @@ TRUNCATE `libraries`.`register`;
 -- INSERT
 INSERT INTO `libraries`.`register` (`nick_name`, `email_address`, `password`) VALUES ('computer', 'hamitmizrak@gmail.com', '123456');
 
--- SELECT
-SELECT * FROM libraries.register;
-
 -- FIND
 SELECT * FROM libraries.register where id=1;
 
@@ -42,3 +39,9 @@ UPDATE `libraries`.`register` SET `nick_name` = 'computer1' WHERE (`id` = '1');
 
 -- DELETE
 DELETE FROM `libraries`.`register` WHERE (`id` = '1');
+
+-- SELECT
+SELECT * FROM libraries.register;
+select count(*) from `libraries`.`register`;
+
+-- LIKE --

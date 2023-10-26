@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67beb0c2-4dd6-4298-a8fa-1d9ae1b3d53c" name="Changes" comment="revize">
+    <list default="true" id="67beb0c2-4dd6-4298-a8fa-1d9ae1b3d53c" name="Changes" comment="SQL">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/database/Sql_tutorials.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/database/Sql_tutorials.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dto/RegisterDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dto/RegisterDto.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698305918674</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="SQL">
+      <option name="closed" value="true" />
+      <created>1698307189887</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698307189887</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -271,6 +278,7 @@
     <MESSAGE value="Database" />
     <MESSAGE value="DatabaseConnection, IDaoGenerics, ERoles, implements" />
     <MESSAGE value="revize" />
-    <option name="LAST_COMMIT_MESSAGE" value="revize" />
+    <MESSAGE value="SQL" />
+    <option name="LAST_COMMIT_MESSAGE" value="SQL" />
   </component>
 </project>
