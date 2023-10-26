@@ -33,7 +33,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto> {
     // CREATE
     // transaction: create,delete,update
     @Override
-    public void create(RegisterDto registerDto) {
+    public RegisterDto create(RegisterDto registerDto) {
         try (Connection connection = getInterfaceConnection()) {
             // transaction: ya hep ya hiç kuralıdır.
             connection.setAutoCommit(false); // default:true
@@ -59,6 +59,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return registerDto;
     } //end create
 
 

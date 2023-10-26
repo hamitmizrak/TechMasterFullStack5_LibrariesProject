@@ -1,7 +1,10 @@
 package com.hamitmizrak;
 
+import com.hamitmizrak.controller.RegisterController;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.printf("Merhabalar!");
+        RegisterController registerController=new RegisterController();
+        registerController.commonMethodLibraries();
     }
 }
