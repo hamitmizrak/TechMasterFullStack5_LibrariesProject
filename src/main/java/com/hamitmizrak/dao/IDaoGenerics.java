@@ -11,7 +11,7 @@ public interface IDaoGenerics <T> {
     public String allDelete();
     ////////////////////////////////////////
 
-    //C R U D
+    // C R U D
     // CREATE
     public void create(T t);
 
@@ -32,4 +32,4 @@ public interface IDaoGenerics <T> {
     default Connection getInterfaceConnection(){ //java.sql.Connection
         return DatabaseConnection.getInstance().getConnection();
     }
-}
+} //end interface

@@ -46,4 +46,4 @@ public class RegisterDao  implements IDaoGenerics<RegisterDto> {
     public RegisterDto delete(Long id) {
         return null;
     }
-}
+} //end class

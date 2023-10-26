@@ -13,16 +13,19 @@ public class RegisterDto extends  BaseDto implements Serializable {
     private String uEmailAddress;
     private String uPassword;
 
-    // Constructor
+    // Constructor (parametresiz)
     public RegisterDto() {
     }
 
+    // Constructor (parametreli)
     public RegisterDto(String uNickName, String uEmailAddress, String uPassword) {
         this.uNickName = uNickName;
         this.uEmailAddress = uEmailAddress;
         this.uPassword = uPassword;
     }
 
+    // Constructor (parametreli)
+    // Overloadinng
     public RegisterDto(Long id, Date systemCreatedDate, String uNickName, String uEmailAddress, String uPassword) {
         super(id, systemCreatedDate);
         this.uNickName = uNickName;
