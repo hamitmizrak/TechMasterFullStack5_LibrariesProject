@@ -2,7 +2,6 @@ package com.hamitmizrak.dao;
 
 import com.hamitmizrak.dto.RegisterDto;
 import com.hamitmizrak.exception.NotFound404Exception;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
