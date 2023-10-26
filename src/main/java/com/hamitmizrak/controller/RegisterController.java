@@ -1,14 +1,11 @@
 package com.hamitmizrak.controller;
 
 import com.hamitmizrak.dao.IDaoGenerics;
-import com.hamitmizrak.dao.RegisterDao;
 import com.hamitmizrak.dto.RegisterDto;
-
 import java.util.ArrayList;
 
 public class RegisterController  implements IDaoGenerics<RegisterDto> {
 
-    // Injection
 
     @Override
     public String speedData(Long id) {

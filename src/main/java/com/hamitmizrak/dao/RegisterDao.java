@@ -61,6 +61,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto> {
         }
     } //end create
 
+
     // FIND BY ID
     @Override
     public RegisterDto findById(Long id) {
