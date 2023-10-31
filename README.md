@@ -36,6 +36,8 @@ Register
 sayfas?na yönlendiriyor.
 Kullan?c?lar sisteme yanl?? giri? yapt?klar?nda log dosyas? olu?turuluyor. 
 E?er Üye pasifse sisteme giri? yapamas?n bunu ancak admin aktifle?tirebilsin.
+Dosya ekleme (writer ve admin)
+Dosya silmeyi sadece admin yapabilsin.
 3 tane rol bulunmaktad?r.
 1-) admin 
 2-) writer 

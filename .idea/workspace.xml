@@ -4,28 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67beb0c2-4dd6-4298-a8fa-1d9ae1b3d53c" name="Changes" comment="REgister">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/exception/BadRequest400Exception.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/exception/HamitMizrak0Exception.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/service/RegisterLoginServices.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/tutorials/_001LessonJava.java" afterDir="false" />
+    <list default="true" id="67beb0c2-4dd6-4298-a8fa-1d9ae1b3d53c" name="Changes" comment="Register - Login revize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/controller/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dao/IDaoGenerics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dao/IDaoGenerics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dao/RegisterDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dao/RegisterDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/database/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/database/DatabaseInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/database/DatabaseInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/database/Sql_tutorials.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/database/Sql_tutorials.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dto/BaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dto/BaseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dto/RegisterDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/dto/RegisterDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/exception/BadRequeset400Exception.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/exception/Created201Exception.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/exception/Created201Exception.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/exception/NotFound404Exception.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/exception/NotFound404Exception.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/files/FilePathData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/files/FilePathData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/files/FilePathUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/files/FilePathUrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/roles/ERoles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/roles/ERoles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/service/RegisterLoginServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hamitmizrak/service/RegisterLoginServices.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698318517275</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Register - Login revize">
+      <option name="closed" value="true" />
+      <created>1698737943751</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1698737943751</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -286,7 +276,8 @@
     <MESSAGE value="CRUD" />
     <MESSAGE value="Revize" />
     <MESSAGE value="REgister" />
-    <option name="LAST_COMMIT_MESSAGE" value="REgister" />
+    <MESSAGE value="Register - Login revize" />
+    <option name="LAST_COMMIT_MESSAGE" value="Register - Login revize" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

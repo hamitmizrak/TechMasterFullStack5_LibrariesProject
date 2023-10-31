@@ -118,7 +118,9 @@ public class RegisterLoginServices {
             System.out.println("\nADMIN SAYFASINA HOSGELDINIZ");
             System.out.println("Lütfen Seçiminizi Yapınız");
             System.out.println("0-) Ana sayfa\n1-) Üye Listele\n2-) Üye Ekle\n3-) Üye Bul(ID)\n4-) Üye Bul (Email)");
-            System.out.println("5-) Üye Güncelle\n6-) Üye Sil\n7-) Giriş Logları\n8-) Çıkış Yap");
+            System.out.println("5-) Üye Güncelle\n6-) Üye Sil\n7-) Giriş Logları\n8-) Rolünüz");
+            System.out.println("9-) Dosya Ekle\n10-) Dosya Sil\n");
+            System.out.println("8-) Çıkış Yap");
             int chooise = klavye.nextInt();
             switch (chooise) {
                 case 0:
