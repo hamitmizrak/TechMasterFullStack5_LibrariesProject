@@ -119,8 +119,8 @@ public class RegisterLoginServices {
             System.out.println("Lütfen Seçiminizi Yapınız");
             System.out.println("0-) Ana sayfa\n1-) Üye Listele\n2-) Üye Ekle\n3-) Üye Bul(ID)\n4-) Üye Bul (Email)");
             System.out.println("5-) Üye Güncelle\n6-) Üye Sil\n7-) Giriş Logları\n8-) Rolünüz");
-            System.out.println("9-) Dosya Ekle\n10-) Dosya Sil\n");
-            System.out.println("8-) Çıkış Yap");
+            System.out.println("9-) Dosya Ekle\n10-) Dosya Listele\n11-) Dosya Sil");
+            System.out.println("12-) Çıkış Yap");
             int chooise = klavye.nextInt();
             switch (chooise) {
                 case 0:
@@ -142,7 +142,7 @@ public class RegisterLoginServices {
                     }
                     break;
                 case 3:
-                    if ( registerDto.getRolles().equals(ERoles.ADMIN.getValue()) ||  registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue()) || registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
                         memberList();
                         System.out.println("ID'e göre Bulma");
                         RegisterDto registerDtoFindId = memberFindById();
@@ -159,7 +159,7 @@ public class RegisterLoginServices {
                     }
                     break;
                 case 4:
-                    if ( registerDto.getRolles().equals(ERoles.ADMIN.getValue()) || registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue()) || registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
                         memberList();
                         System.out.println("Email'e göre bulma");
                         RegisterDto registerDtoFindEmail = memberfindEmail();
@@ -195,6 +195,24 @@ public class RegisterLoginServices {
                     logFile();
                     break;
                 case 8:
+                    System.out.println("Rolünüz: " + userRoles(registerDto.getRolles()));
+                    break;
+                case 9:
+                    System.out.println("Dosya Ekleme");
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue()) || registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
+                        specialFileCreateData();
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
+                    break;
+                case 10:
+                    /// Dosya Listele  admin,writer
+                    break;
+                case 11:
+                    /// Dosya Sil sadece admin
+                    break;
+                case 12:
                     logout();
                     break;
                 default:
@@ -203,6 +221,15 @@ public class RegisterLoginServices {
             } //end switch
         } //end while
     } //end method adminProcess
+
+    // CREATE FILE
+    private void specialFileCreateData() {
+        Scanner klavye = new Scanner(System.in);
+        System.out.println("Oluşturmak istediğiniz dosya adını giriniz");
+        String fileName = klavye.nextLine();
+        filePathData.specialFileCreate(fileName);
+    }
+
 
     // just member login
     private void specialHomePage() {
@@ -281,6 +308,12 @@ public class RegisterLoginServices {
     // LOGLAMA
     private void logFile() {
         filePathData.logFileReader();
+    }
+
+
+    // ROLES
+    private String userRoles(String roles) {
+        return roles;
     }
 
     // Logout

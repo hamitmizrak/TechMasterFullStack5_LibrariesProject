@@ -46,6 +46,32 @@ public class FilePathData {
         }
     } //end constructor
 
+    // Constructor (Parametreli)
+
+    // File Kendim yazacağım
+    public String specialFileCreate(String fileName){
+        this.id = UUID.randomUUID().toString();
+        this.systemCreatedDate = new Date(System.currentTimeMillis());
+        pathFileName = "\\"+fileName.concat(".txt");
+        pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
+        url = pathDirectoryName.concat(pathFileName);
+        this.file = new File(url);
+        try {
+            // Böyle bir dosya var mı?
+            if (file.createNewFile()) {
+                System.out.println(pathFileName + "Böyle bir dosya yoktur ve oluşturuldu.");
+            } else {
+                String fileNameData = pathFileName + "Böyle bir dosya var tekrardan oluşturulmadı.";
+                System.out.println(fileNameData);
+                return  fileNameData;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return url+ "olusutuldu";
+    }
+
+
     // toString
     @Override
     public String toString() {
