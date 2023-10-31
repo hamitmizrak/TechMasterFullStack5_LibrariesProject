@@ -225,6 +225,15 @@ public class RegisterLoginServices {
                     }
                     break;
                 case 12:
+                    System.out.println("Dosya Bilgileri");
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue()) || registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
+                        fileInformation();
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
+                    break;
+                case 12:
                     logout();
                     break;
                 default:
@@ -233,7 +242,6 @@ public class RegisterLoginServices {
             } //end switch
         } //end while
     } //end method adminProcess
-
 
     // CREATE FILE
     private void specialFileCreateData() {
@@ -248,13 +256,19 @@ public class RegisterLoginServices {
         filePathData.fileList();
     }
 
+    // File Delete
     private void fileDeleteData() {
 
+    }
+
+    // File Information
+    private void fileInformation() {
     }
 
 
     // just member login
     private void specialHomePage() {
+        System.out.println("Sadece Üyeler Bu sayfayı görebilir.");
     }
 
     // CRUD
