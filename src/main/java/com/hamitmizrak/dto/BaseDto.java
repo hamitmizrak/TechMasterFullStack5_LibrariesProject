@@ -4,21 +4,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 // BaseDto
-public class BaseDto implements Serializable {
+abstract public class BaseDto implements Serializable {
 
     // Serileştirme
-    public static final Long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L;
 
     // Variable
-    protected Long id;
-    protected Date systemCreatedDate;
+    private Long id;
+    private Date systemCreatedDate;
 
-    // Constructor (parametresiz)
+    // constructor (Parametresiz)
     public BaseDto() {
-        systemCreatedDate = new Date(System.currentTimeMillis());
+        System.out.println("HashCode " + BaseDto.class.hashCode());
+        this.systemCreatedDate = new Date(System.currentTimeMillis());
     }
 
-    //  constructor (parametreli)
+    // constructor (Parametreli)
     public BaseDto(Long id, Date systemCreatedDate) {
         this.id = id;
         this.systemCreatedDate = systemCreatedDate;
@@ -32,6 +33,14 @@ public class BaseDto implements Serializable {
                 ", systemCreatedDate=" + systemCreatedDate +
                 '}';
     }
+
+    //Metotlar
+    public String nowDate() {
+        return String.valueOf(this.systemCreatedDate);
+    }
+
+    // Gövdesiz metot
+    abstract public String nowDateAbstract();
 
     // Getter And Setter
     public Long getId() {
@@ -49,4 +58,4 @@ public class BaseDto implements Serializable {
     public void setSystemCreatedDate(Date systemCreatedDate) {
         this.systemCreatedDate = systemCreatedDate;
     }
-} //end class
+} //end class BaseDto

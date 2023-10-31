@@ -1,10 +1,10 @@
 package com.hamitmizrak;
-
-import com.hamitmizrak.controller.RegisterController;
+import com.hamitmizrak.service.RegisterLoginServices;
 
 public class Main {
     public static void main(String[] args) {
-        RegisterController registerController=new RegisterController();
-        registerController.commonMethodLibraries();
+        RegisterLoginServices services = new RegisterLoginServices();
+        //services.register();
+        services.login();
     }
 }

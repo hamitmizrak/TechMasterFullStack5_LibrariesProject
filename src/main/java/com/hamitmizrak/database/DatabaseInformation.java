@@ -1,5 +1,6 @@
 package com.hamitmizrak.database;
 
+// Database Information
 abstract public class DatabaseInformation {
 
     // Variable
@@ -8,16 +9,16 @@ abstract public class DatabaseInformation {
     protected String password;
     protected String forNameData;
 
-    // parametresiz constructor
+    // Constructor (Parametresiz)
     public DatabaseInformation() {
-        // Default : Mysql
-        this.url = "jdbc:mysql://localhost:3306/libraries";
-        this.user = "root";
-        this.password = "root";
-        this.forNameData = "com.mysql.cj.jdbc.Driver";
+        //Default Mysql
+        user="root";        // yanlıs verirsem: Caused by: java.sql.SQLException: Access denied for user 'root44'@'localhost' (using password: YES)
+        password="root";  // yanlıs verirsem: Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost'   (using password: YES)
+        url="jdbc:mysql://localhost:3306/libraries";
+        forNameData="com.mysql.cj.jdbc.Driver";
     }
 
-    // parametreli constructor
+    // Constructor (Parametreli)
     public DatabaseInformation(String url, String user, String password, String forNameData) {
         this.url = url;
         this.user = user;
@@ -25,10 +26,7 @@ abstract public class DatabaseInformation {
         this.forNameData = forNameData;
     }
 
-    // Gövdesiz metot
-    abstract public void databaseInfo();
-
-    //     GETTER AND SETTER
+    // GETTER AND SETTER
     public String getUrl() {
         return url;
     }
@@ -60,4 +58,4 @@ abstract public class DatabaseInformation {
     public void setForNameData(String forNameData) {
         this.forNameData = forNameData;
     }
-} //end class
+} //end class DatabaseInformation

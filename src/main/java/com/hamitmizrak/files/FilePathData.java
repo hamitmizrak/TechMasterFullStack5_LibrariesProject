@@ -1,7 +1,10 @@
 package com.hamitmizrak.files;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class FilePathData {
@@ -9,128 +12,100 @@ public class FilePathData {
     // Variable
     private String id;
     private String pathFileName;
+    private String pathDirectoryName;
     private String url;
-    private String path;
     private File file;
-    private Date sytemCreatedDate;
+    private Date systemCreatedDate;
 
-    // parametresiz constructor
-    // URL URI
-    // Relative path absolute path
+    // Parametresiz Constructor
     public FilePathData() {
-        id = UUID.randomUUID().toString();
-        sytemCreatedDate = new Date(System.currentTimeMillis());
-        url = "C:\\io\\techcareer\\full_4";
-        pathFileName = "\\MyRemainingRight.txt";
-        //path="C:\\io\\techcareer\\full_4\\MyRemainingRight.txt";
-        path = url.concat(pathFileName);
-        file = new File(path);
+        this.id = UUID.randomUUID().toString();
+        this.systemCreatedDate = new Date(System.currentTimeMillis());
+        pathFileName = "\\log.txt";
+        // C:\io\techcareer\full_4
+        pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
+        // C:\\io\\techcareer\\full_4\\log.txt
+        url = pathDirectoryName.concat(pathFileName);
+        file = new File(url);
         try {
-            // Böyle bir dosya var mı ? eğer varsa tekrar oluşturma
+            // Böyle bir dosya var mı?
             if (file.createNewFile()) {
-                System.out.println("Böyle bir dosya yoktur " + path + " adında dosya oluşturuldu");
-                System.out.println("Permission: Çalışabilir mi ?" + file.canExecute() + " Okunabilinir mi ? " + file.canRead() + " Yazılabilir mi ?" + file.canWrite());
-                System.out.println("ID: " + this.id + "URL: " + this.path + " " + file.getName() + " PATH: " + file.getPath());
-                // dosyaya default 4 hak verildi.
-                fileWriterRemainingNumber(4);
-                System.out.println("Default Kalan hak: "+fileReaderRemainingNumber());
+                System.out.println(pathFileName + "Böyle bir dosya yoktur ve oluşturuldu.");
+                System.out.println("Permission: Okunabilinir mi ?" + file.canRead() + " yazılabilinir mi? " + file.canWrite() + " Çalıştırılabilinir mi " + file.canExecute());
+                // toString
+                System.out.println("ID: " + this.id + " URL: " + this.url + " Hash Code: " + file.hashCode());
+                // logFileWriter();// Writer
+                // logFileReader();// Reader
+               // fileIsDelete(); // Delete
             } else {
-                System.out.println(path + " Böyle bir dosya adı zaten var tekrardan oluşturulmadı !!!");
+                String fileName = pathFileName + "Böyle bir dosya var tekrardan oluşturulmadı.";
+                System.out.println(fileName);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    } //end constructor
+
+    // toString
+    @Override
+    public String toString() {
+        return "FilePathData{" +
+                "id='" + id + '\'' +
+                ", pathFileName='" + pathFileName + '\'' +
+                ", pathDirectoryName='" + pathDirectoryName + '\'' +
+                ", url='" + url + '\'' +
+                ", file=" + file +
+                ", systemCreatedDate=" + systemCreatedDate +
+                '}';
     }
 
-    //// METOTLAR //////////////////////////////////
-    // FileWriter
-    public void fileWriterRemainingNumber(int counter) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.path, false))) {
-            // Dikkat: File Yazarken Stirnf olarak yazmalıyız yoksa EOT olarak
-            bufferedWriter.write(String.valueOf(counter));
+    // file Date Locale
+    private String localeDateTime(){
+        Locale locale= new Locale("tr","TR");
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMMM-yyyy",locale);
+        Date date=new Date();
+        String changeDate=simpleDateFormat.format(date);
+        return changeDate;
+    }
+
+    // File Writer
+    public void logFileWriter(String email, String password) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.url, true))) {
+            String data="[ "+ localeDateTime()+" ] "+email+" "+password;
+            bufferedWriter.write(data+"\n");
             bufferedWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    } //end Writer
 
-    // FileReader
-    public Integer fileReaderRemainingNumber() {
+    // File Reader
+    public void logFileReader() {
         String rows; // okunan satır
-        Integer numberOfRights = null; //kalan hak sayısı
-        String readRows;
-        StringBuilder stringBuilder=new StringBuilder();
-        try(BufferedReader bufferedReader=new BufferedReader(new FileReader(this.path))) {
-            while( (rows=bufferedReader.readLine())!=null ){
-                stringBuilder.append(rows);
+        StringBuilder stringBuilder = new StringBuilder();
+        String builderToString;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.url))) {
+            while ((rows = bufferedReader.readLine()) != null) {
+                stringBuilder.append(rows).append("\n");
             }
-            readRows=stringBuilder.toString();
-            numberOfRights=Integer.valueOf(readRows);
-        }catch (Exception e){
+            builderToString=stringBuilder.toString();
+            System.out.println("LOGLAMA:\n" +builderToString);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return numberOfRights;
+    } //end Reader
+
+    // File Delete
+    public void fileIsDelete(){
+        Scanner klavye=new Scanner(System.in);
+        char chooise;
+        System.out.println(pathFileName+" bu dosyayı silmek ister misiniz ? E / H");
+        chooise=klavye.nextLine().charAt(0);
+        if(chooise=='E' || chooise=='e'){
+            file.exists();
+        }else{
+            System.out.println(pathFileName+ "Silinmedi");
+        }
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //GETTER AND SETTER
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPathFileName() {
-        return pathFileName;
-    }
-
-    public void setPathFileName(String pathFileName) {
-        this.pathFileName = pathFileName;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    public Date getSytemCreatedDate() {
-        return sytemCreatedDate;
-    }
-
-    public void setSytemCreatedDate(Date sytemCreatedDate) {
-        this.sytemCreatedDate = sytemCreatedDate;
-    }
-
-    public static void main(String[] args) {
-        //FilePathData filePathData = new FilePathData();
-        //System.out.println(filePathData);
-    }
-} //end class
-
-// Primitive Type ile Wrapper Type arasındaki farklar ?
-// Heap memory ile Stack memory nedir arasındaki farklar ?
-// String neden primitive Type'dır ?
-// Compiler Interpreter nedir ?
-// Java 8 ile gelen stream seri ve paralel nedir ?
-
+}// end class FilePathData

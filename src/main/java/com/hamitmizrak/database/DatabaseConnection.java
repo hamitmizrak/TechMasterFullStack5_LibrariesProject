@@ -4,66 +4,63 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-// Class
 public class DatabaseConnection extends DatabaseInformation {
 
-    // Field
-    private final String url = super.getUrl();
-    private String user = super.getUser();
-    private String password = super.getPassword();
-    private String forNameData = super.getForNameData();
+    // Variable
+    private String url = super.url;
+    private String user = super.user;
+    private String password = super.password;
+    private String forNameData = super.forNameData;
 
-    // For Database
-    private Connection connection; // import java.sql.Connection;
+    // JDBC Connection
+    private Connection connection;  //java.sql.Connection
 
-    // Design Pattern (Creational Singleton design Pattern (Class)
+    // Singleton Design Pattern (Variable)
     private static DatabaseConnection instance;
 
-    // Singleton design Pattern (Constructor)
+    // Singleton Design Pattern (Constructor)
     private DatabaseConnection() {
         try {
             Class.forName(this.forNameData);
-            System.out.println("Database Class Yüklendi");
+            //System.out.println("Driver başarıyla Yüklendi");
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Database bağlantısı başarıılı");
-        } catch (ClassNotFoundException classNotFoundException) {
-            classNotFoundException.printStackTrace();
+            //System.out.println("Database bağlantısı başarılı");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-    }
+    } //end constructor
 
-    // Dış dünyaya açılacak metot sadece bu
+    // Singleton Design Pattern (Method)
     public static DatabaseConnection getInstance() {
         try {
-            // Eğer connection null veya kapalı ise
-            // yeni instance oluştur
+            // Eğer connection kapalı veya null ise oluştur
+            // Eğer bağlantı varsa o bağlantıyı kullan.
             if (instance == null || instance.connection.isClosed()) {
                 instance = new DatabaseConnection();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
         return instance;
-    }
-
-    // GÖVDESİZ METOT GELEN
-    @Override
-    public void databaseInfo() {
-        System.out.println("Database Information: " + super.getUrl() + " " + super.getForNameData() + " " + super.getPassword() + " " + super.getUser());
-    }
+    } //end instance
 
     // GETTER AND SETTER
-    public Connection getConnection() {
+    public Connection getConnection () {
         return connection;
     }
 
-    public void setConnection(Connection connection) {
+    public void setConnection (Connection connection){
         this.connection = connection;
     }
 
-    // TEST
+    //////////////////////////////////////////////////////////////////////
+    // PSVM
     public static void main(String[] args) {
-        //DatabaseConnection databaseConnection = new DatabaseConnection();
+       // DatabaseConnection databaseConnection=new DatabaseConnection();
     }
-} //end class
+
+} //end class DatabaseConnection

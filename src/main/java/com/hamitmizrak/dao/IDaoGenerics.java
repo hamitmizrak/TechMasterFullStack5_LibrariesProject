@@ -6,11 +6,13 @@ import com.hamitmizrak.dto.RegisterDto;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+// INTERFACE
 public interface IDaoGenerics <T> {
 
     public String speedData(Long id);
     public String allDelete();
-    ////////////////////////////////////////
+
+    ////////////////////////////////////////////////////
 
     // C R U D
     // CREATE
@@ -18,19 +20,20 @@ public interface IDaoGenerics <T> {
 
     // FIND BY ID
     public T findById(Long id);
+    public T findByEmail(String email);
 
     // LIST
     public ArrayList<T> list();
 
     // UPDATE
-    public T update(Long id,T t);
+    public T update(Long id, T t);
+    public RegisterDto updateRemaing(Long id, T t);
 
     // DELETE
-    public T delete(RegisterDto registerDto );
+    public T deleteById(T t);
 
-    ////////////////////////////////////////
-    // interface Gövdeli yapmak istiyorsak; default yazacağız.
-    default Connection getInterfaceConnection(){ //java.sql.Connection
+    ///////////////////////////////////////////////////////
+    default Connection getInterfaceConnection(){
         return DatabaseConnection.getInstance().getConnection();
-    }
-} //end interface
+    } //end body interface
+} //end interface IDaoGenerics

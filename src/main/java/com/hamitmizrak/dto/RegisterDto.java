@@ -1,65 +1,62 @@
 package com.hamitmizrak.dto;
-import java.io.Serializable;
-import java.util.Date;
 
-// RegisterDto
-public class RegisterDto extends  BaseDto implements Serializable {
+import java.io.Serializable;
+
+// Register
+public class RegisterDto extends BaseDto implements Serializable {
 
     // Serileştirme
-    public static final Long serialVersionUID = 1L;
+    public static final Long serialVersionUID=1L;
 
     //Variable
-    private String uNickName;
+    private String uNickname;
     private String uEmailAddress;
     private String uPassword;
-    private int remainingNumber;
+    private Long remainingNumber; // Kullanıcı kalan hak
     private Boolean isPassive;
+    private String rolles;
 
-    // Constructor (parametresiz)
+
+    // constructor(parametresiz)
     public RegisterDto() {
     }
 
-    // Constructor (parametreli)
-    public RegisterDto(String uNickName, String uEmailAddress, String uPassword,int remainingNumber,Boolean isPassive) {
-        this.uNickName = uNickName;
+    // constructor(parametreli)
+    public RegisterDto(String uNickname, String uEmailAddress, String uPassword, Long remainingNumber, Boolean isPassive, String rolles) {
+        this.uNickname = uNickname;
         this.uEmailAddress = uEmailAddress;
         this.uPassword = uPassword;
         this.remainingNumber = remainingNumber;
         this.isPassive = isPassive;
+        this.rolles = rolles;
     }
 
-    // Constructor (parametreli)
-    // Overloadinng
-    public RegisterDto(Long id, Date systemCreatedDate, String uNickName, String uEmailAddress, String uPassword,int remainingNumber,Boolean isPassive) {
-        super(id, systemCreatedDate);
-        this.uNickName = uNickName;
-        this.uEmailAddress = uEmailAddress;
-        this.uPassword = uPassword;
-        this.remainingNumber = remainingNumber;
-        this.isPassive = isPassive;
-    }
-
-    // toString
+    //toString
     @Override
     public String toString() {
         return "RegisterDto{" +
-                "uNickName='" + uNickName + '\'' +
+                "uNickname='" + uNickname + '\'' +
                 ", uEmailAddress='" + uEmailAddress + '\'' +
                 ", uPassword='" + uPassword + '\'' +
-                ", remainingNumber='" + remainingNumber + '\'' +
-                ", isPassive='" + isPassive + '\'' +
-                ", id=" + id +
-                ", systemCreatedDate=" + systemCreatedDate +
+                ", remainingNumber=" + remainingNumber +
+                ", isPassive=" + isPassive +
+                ", rolles='" + rolles + '\'' +
                 "} " + super.toString();
     }
 
-    // GETTER AND SETTER
-    public String getuNickName() {
-        return uNickName;
+    @Override
+    public String nowDateAbstract() {
+        return null;
     }
 
-    public void setuNickName(String uNickName) {
-        this.uNickName = uNickName;
+    //GETTER AND SETTER
+    public String getuNickname() {
+        return uNickname;
+    }
+
+    // Eğer Kullanıcının kelimelrde başında ve sonunda boşluklar varsa bunu engelememiz gerekiyor.
+    public void setuNickname(String uNickname) {
+        this.uNickname = uNickname.trim();
     }
 
     public String getuEmailAddress() {
@@ -67,7 +64,7 @@ public class RegisterDto extends  BaseDto implements Serializable {
     }
 
     public void setuEmailAddress(String uEmailAddress) {
-        this.uEmailAddress = uEmailAddress;
+        this.uEmailAddress = uEmailAddress.trim();
     }
 
     public String getuPassword() {
@@ -75,14 +72,14 @@ public class RegisterDto extends  BaseDto implements Serializable {
     }
 
     public void setuPassword(String uPassword) {
-        this.uPassword = uPassword;
+        this.uPassword = uPassword.trim();
     }
 
-    public int getRemainingNumber() {
+    public Long getRemainingNumber() {
         return remainingNumber;
     }
 
-    public void setRemainingNumber(int remainingNumber) {
+    public void setRemainingNumber(Long remainingNumber) {
         this.remainingNumber = remainingNumber;
     }
 
@@ -93,4 +90,13 @@ public class RegisterDto extends  BaseDto implements Serializable {
     public void setPassive(Boolean passive) {
         isPassive = passive;
     }
-} //end  class
+
+    public String getRolles() {
+        return rolles;
+    }
+
+    public void setRolles(String rolles) {
+        this.rolles = rolles;
+    }
+
+} //end class RegisterDto
