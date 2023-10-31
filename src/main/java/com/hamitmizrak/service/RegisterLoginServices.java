@@ -120,7 +120,7 @@ public class RegisterLoginServices {
             System.out.println("0-) Ana sayfa\n1-) Üye Listele\n2-) Üye Ekle\n3-) Üye Bul(ID)\n4-) Üye Bul (Email)");
             System.out.println("5-) Üye Güncelle\n6-) Üye Sil\n7-) Giriş Logları\n8-) Rolünüz");
             System.out.println("9-) Dosya Ekle\n10-) Dosya Listele\n11-) Dosya Sil");
-            System.out.println("12-) Çıkış Yap");
+            System.out.println("12-) Dosya Bilgileri\n13-) Çıkış Yap");
             int chooise = klavye.nextInt();
             switch (chooise) {
                 case 0:
@@ -233,7 +233,7 @@ public class RegisterLoginServices {
                         //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
                     }
                     break;
-                case 12:
+                case 13:
                     logout();
                     break;
                 default:
@@ -258,13 +258,13 @@ public class RegisterLoginServices {
 
     // File Delete
     private void fileDeleteData() {
-
+        filePathData.fileIsDelete();
     }
 
     // File Information
     private void fileInformation() {
+        filePathData.fileProperties();
     }
-
 
     // just member login
     private void specialHomePage() {
@@ -345,7 +345,6 @@ public class RegisterLoginServices {
     private void logFile() {
         filePathData.logFileReader();
     }
-
 
     // ROLES
     private String userRoles(String roles) {
