@@ -68,9 +68,20 @@ public class FilePathData {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return url+ "olusutuldu";
+        return url+ "olusturuldu";
     }
 
+    // Dosya Listele
+    public void fileList(){
+        File fileList=new File(FilePathUrl.MY_FILE_PATH_URL);
+        for(File temp: fileList.listFiles()   ){
+            System.out.println(temp.getName());
+        }
+    }
+
+    public void fileProperties(){
+
+    }
 
     // toString
     @Override

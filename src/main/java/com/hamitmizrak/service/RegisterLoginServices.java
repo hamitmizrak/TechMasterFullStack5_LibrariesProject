@@ -207,10 +207,22 @@ public class RegisterLoginServices {
                     }
                     break;
                 case 10:
-                    /// Dosya Listele  admin,writer
+                    System.out.println("Dosya Listeleme");
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue()) || registerDto.getRolles().equals(ERoles.WRITER.getValue())) {
+                        fileListData();
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
                     break;
                 case 11:
-                    /// Dosya Sil sadece admin
+                    System.out.println("Dosya Silme");
+                    if (registerDto.getRolles().equals(ERoles.ADMIN.getValue()) ) {
+                        fileDeleteData();
+                    } else {
+                        System.out.println("Rolünüz: " + registerDto.getRolles() + " Yetkiniz yoktur");
+                        //throw new HamitMizrak0Exception("Yetkiniz Yoktur");
+                    }
                     break;
                 case 12:
                     logout();
@@ -222,12 +234,22 @@ public class RegisterLoginServices {
         } //end while
     } //end method adminProcess
 
+
     // CREATE FILE
     private void specialFileCreateData() {
         Scanner klavye = new Scanner(System.in);
         System.out.println("Oluşturmak istediğiniz dosya adını giriniz");
         String fileName = klavye.nextLine();
         filePathData.specialFileCreate(fileName);
+    }
+
+    // File List , Information
+    private void fileListData() {
+        filePathData.fileList();
+    }
+
+    private void fileDeleteData() {
+
     }
 
 
