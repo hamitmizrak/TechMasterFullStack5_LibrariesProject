@@ -2,6 +2,7 @@ package com.hamitmizrak.dao;
 
 import com.hamitmizrak.dto.RegisterDto;
 import com.hamitmizrak.roles.ERoles;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -18,12 +19,13 @@ connection.commit();   ==> Başarılı
 connection.rollback(); ==> Başarısız
  */
 
+// RegisterDao
 public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
 
     // SPEED DATA
     @Override
     public String speedData(Long id) {
-        for (int i = 1; i <=id; i++) {
+        for (int i = 1; i <= id; i++) {
             try (Connection connection = getInterfaceConnection()) {
                 // Manipulation: executeUpdate() [create, delete, update]
                 // Sorgularda  : executeQuery [list, find]
@@ -31,11 +33,11 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 connection.setAutoCommit(false); //default:true
                 String sql = "INSERT INTO `register` (`nick_name`,`email_address`,`password`,`roles`,`remaining_number`,`is_passive`) \n" +
                         " VALUES ('?', '?', '?','?','?','?')";
-                String rnd= UUID.randomUUID().toString();
+                String rnd = UUID.randomUUID().toString();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, "nickname() "+rnd);
-                preparedStatement.setString(2, "emailAddress()"+rnd);
-                preparedStatement.setString(3, "password()"+rnd);
+                preparedStatement.setString(1, "nickname() " + rnd);
+                preparedStatement.setString(2, "emailAddress()" + rnd);
+                preparedStatement.setString(3, "password()" + rnd);
                 preparedStatement.setString(4, ERoles.USER.getValue());
                 preparedStatement.setInt(5, 5);
                 preparedStatement.setBoolean(6, true);
@@ -55,8 +57,8 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 e.printStackTrace();
             }
         }
-        System.out.println( id+ "tane veri eklendi");
-        return id+ "tane veri eklendi";
+        System.out.println(id + "tane veri eklendi");
+        return id + "tane veri eklendi";
     }
 
     // ALL DELETE
@@ -84,7 +86,32 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return list().size()+" tane veri silindi";
+        return list().size() + " tane veri silindi";
+    }
+
+    ////////////////////////////////////////////////////////
+
+    // Sifreleme olustur (Encoder)
+    public String generatebCryptPasswordEncoder(String value){
+        // Sifrelemeyi olusturmak
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String rawPassword = bCryptPasswordEncoder.encode(value);
+        return rawPassword;
+    }
+
+    // Sifre karsilastir (Match)
+    public Boolean matchbCryptPassword(String fistValue, String rawPassword){
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        boolean isMatch=bCryptPasswordEncoder.matches(fistValue,rawPassword);
+        return isMatch;
+    }
+
+    public static void main(String[] args) {
+        RegisterDao registerDao=new RegisterDao();
+        String fistValue="123456";
+        String rawPassword=registerDao.generatebCryptPasswordEncoder(fistValue);
+        boolean result=registerDao.matchbCryptPassword(fistValue,rawPassword);
+        System.out.println(result);
     }
 
     ////////////////////////////////////////////////////////
@@ -103,7 +130,10 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, registerDto.getuNickname());
             preparedStatement.setString(2, registerDto.getuEmailAddress());
-            preparedStatement.setString(3, registerDto.getuPassword());
+
+            //registerDto.setuPassword(resultSet.getString("password"));
+            preparedStatement.setString(3, generatebCryptPasswordEncoder(registerDto.getuPassword()));
+
             preparedStatement.setString(4, registerDto.getRolles());
             preparedStatement.setLong(5, registerDto.getRemainingNumber());
             preparedStatement.setBoolean(6, registerDto.getPassive());
@@ -117,7 +147,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 System.err.println(RegisterDao.class + " !!! Başarısız Ekleme Tamamdır");
                 connection.rollback(); // başarısız
             }
-            return  registerDto; // eğer başarılı ise return registerDto
+            return registerDto; // eğer başarılı ise return registerDto
         } catch (SQLException sql) {
             sql.printStackTrace();
         } catch (Exception e) {
@@ -129,27 +159,26 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     // FIND ID
     @Override
     public RegisterDto findById(Long id) {
-        RegisterDto registerDto=null;
+        RegisterDto registerDto = null;
         try (Connection connection = getInterfaceConnection()) {
             // Dikkat: id Long olduğu için tırnak içinde yazmıyoruz  örneğin: id=1
-            String sql = "SELECT * FROM register where id="+id;
+            String sql = "SELECT * FROM register where id=" + id;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             // executeUpdate() [create, delete, update]
             // Sorgularda  : executeQuery [list, find]
-            ResultSet resultSet=preparedStatement.executeQuery();
-            while(resultSet.next()){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 // nick_name, email_address, password, roles, remaining_number, is_passive
-                registerDto=new RegisterDto();
+                registerDto = new RegisterDto();
                 registerDto.setId(resultSet.getLong("id"));
                 registerDto.setuNickname(resultSet.getString("nick_name"));
                 registerDto.setuEmailAddress(resultSet.getString("email_address"));
-                registerDto.setuPassword(resultSet.getString("password"));
                 registerDto.setRolles(resultSet.getString("roles"));
                 registerDto.setRemainingNumber(resultSet.getLong("remaining_number"));
                 registerDto.setPassive(resultSet.getBoolean("is_passive"));
                 registerDto.setSystemCreatedDate(resultSet.getDate("system_created_date"));
             }
-            return  registerDto; // eğer başarılı ise return registerDto
+            return registerDto; // eğer başarılı ise return registerDto
         } catch (SQLException sql) {
             sql.printStackTrace();
         } catch (Exception e) {
@@ -161,17 +190,17 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     // FIND EMAIL
     @Override
     public RegisterDto findByEmail(String email) {
-        RegisterDto registerDto=null;
+        RegisterDto registerDto = null;
         try (Connection connection = getInterfaceConnection()) {
             // Dikkat: email_address String olduğu için tırnak içinde yazıyoruz örneğin: email="hamitmizrak@gmail.com"
-            String sql = "SELECT * FROM register where email_address='"+email+"\'";
+            String sql = "SELECT * FROM register where email_address='" + email + "\'";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             // executeUpdate() [create, delete, update]
             // Sorgularda  : executeQuery [list, find]
-            ResultSet resultSet=preparedStatement.executeQuery();
-            while(resultSet.next()){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 // nick_name, email_address, password, roles, remaining_number, is_passive
-                registerDto=new RegisterDto();
+                registerDto = new RegisterDto();
                 registerDto.setId(resultSet.getLong("id"));
                 registerDto.setuNickname(resultSet.getString("nick_name"));
                 registerDto.setuEmailAddress(resultSet.getString("email_address"));
@@ -181,7 +210,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 registerDto.setPassive(resultSet.getBoolean("is_passive"));
                 registerDto.setSystemCreatedDate(resultSet.getDate("system_created_date"));
             }
-            return  registerDto; // eğer başarılı ise return registerDto
+            return registerDto; // eğer başarılı ise return registerDto
         } catch (SQLException sql) {
             sql.printStackTrace();
         } catch (Exception e) {
@@ -193,7 +222,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     // LIST
     @Override
     public ArrayList<RegisterDto> list() {
-        ArrayList<RegisterDto> list=new ArrayList<>();
+        ArrayList<RegisterDto> list = new ArrayList<>();
         RegisterDto registerDto;
         try (Connection connection = getInterfaceConnection()) {
             // Dikkat: email_address String olduğu için tırnak içinde yazıyoruz örneğin: email="hamitmizrak@gmail.com"
@@ -201,10 +230,10 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             // executeUpdate() [create, delete, update]
             // Sorgularda  : executeQuery [list, find]
-            ResultSet resultSet=preparedStatement.executeQuery();
-            while(resultSet.next()){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
                 // nick_name, email_address, password, roles, remaining_number, is_passive
-                registerDto=new RegisterDto();
+                registerDto = new RegisterDto();
                 registerDto.setId(resultSet.getLong("id"));
                 registerDto.setuNickname(resultSet.getString("nick_name"));
                 registerDto.setuEmailAddress(resultSet.getString("email_address"));
@@ -215,7 +244,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
                 registerDto.setSystemCreatedDate(resultSet.getDate("system_created_date"));
                 list.add(registerDto);
             }
-            return  list; // eğer başarılı ise return registerDto
+            return list; // eğer başarılı ise return registerDto
         } catch (SQLException sql) {
             sql.printStackTrace();
         } catch (Exception e) {
@@ -229,43 +258,43 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     @Override
     public RegisterDto update(Long id, RegisterDto registerDto) {
         // Bu ID ile ilgili kullanıcı varmı ?
-       RegisterDto find= findById(id);
-       if(find!=null){
-           try (Connection connection = getInterfaceConnection()) {
-               // Manipulation: executeUpdate() [create, delete, update]
-               // Sorgularda  : executeQuery [list, find]
-               // Transaction:
-               connection.setAutoCommit(false); //default:true
-               String sql = "UPDATE `register` SET `nick_name`=?, `email_address`=?, `password`=?, `roles`=?, " +
-                       "`remaining_number`=?, `is_passive`=?" +
-                       " WHERE `id` =?;";
-               PreparedStatement preparedStatement = connection.prepareStatement(sql);
-               preparedStatement.setString(1, registerDto.getuNickname());
-               preparedStatement.setString(2, registerDto.getuEmailAddress());
-               preparedStatement.setString(3, registerDto.getuPassword());
-               preparedStatement.setString(4, registerDto.getRolles());
-               preparedStatement.setLong(5, registerDto.getRemainingNumber());
-               preparedStatement.setBoolean(6, registerDto.getPassive());
-               preparedStatement.setLong(7, registerDto.getId());
-               // executeUpdate: create, delete, update için kullanılır.
-               int rowsEffected = preparedStatement.executeUpdate();
-               // eğer güncelle yapılmamışsa -1 değerini döner
-               if (rowsEffected > 0) {
-                   System.out.println(RegisterDao.class + " Başarılı Güncelleme Tamamdır");
-                   connection.commit(); // başarılı
-               } else {
-                   System.err.println(RegisterDao.class + " !!! Başarısız Güncelleme Tamamdır");
-                   connection.rollback(); // başarısız
-               }
-               return  registerDto; // eğer başarılı ise return registerDto
-           } catch (SQLException sql) {
-               sql.printStackTrace();
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-       }else{
-           System.err.println("Böyle Bir kullanıcı yoktur ve güncelleme yapılamaz...");
-       }
+        RegisterDto find = findById(id);
+        if (find != null) {
+            try (Connection connection = getInterfaceConnection()) {
+                // Manipulation: executeUpdate() [create, delete, update]
+                // Sorgularda  : executeQuery [list, find]
+                // Transaction:
+                connection.setAutoCommit(false); //default:true
+                String sql = "UPDATE `register` SET `nick_name`=?, `email_address`=?, `password`=?, `roles`=?, " +
+                        "`remaining_number`=?, `is_passive`=?" +
+                        " WHERE `id` =?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, registerDto.getuNickname());
+                preparedStatement.setString(2, registerDto.getuEmailAddress());
+                preparedStatement.setString(3, registerDto.getuPassword());
+                preparedStatement.setString(4, registerDto.getRolles());
+                preparedStatement.setLong(5, registerDto.getRemainingNumber());
+                preparedStatement.setBoolean(6, registerDto.getPassive());
+                preparedStatement.setLong(7, registerDto.getId());
+                // executeUpdate: create, delete, update için kullanılır.
+                int rowsEffected = preparedStatement.executeUpdate();
+                // eğer güncelle yapılmamışsa -1 değerini döner
+                if (rowsEffected > 0) {
+                    System.out.println(RegisterDao.class + " Başarılı Güncelleme Tamamdır");
+                    connection.commit(); // başarılı
+                } else {
+                    System.err.println(RegisterDao.class + " !!! Başarısız Güncelleme Tamamdır");
+                    connection.rollback(); // başarısız
+                }
+                return registerDto; // eğer başarılı ise return registerDto
+            } catch (SQLException sql) {
+                sql.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.err.println("Böyle Bir kullanıcı yoktur ve güncelleme yapılamaz...");
+        }
         return null;
     }
 
@@ -273,8 +302,8 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     @Override
     public RegisterDto updateRemaing(Long id, RegisterDto registerDto) {
         // Bu ID ile ilgili kullanıcı varmı ?
-        RegisterDto find= findById(id);
-        if(find!=null){
+        RegisterDto find = findById(id);
+        if (find != null) {
             try (Connection connection = getInterfaceConnection()) {
                 // Manipulation: executeUpdate() [create, delete, update]
                 // Sorgularda  : executeQuery [list, find]
@@ -301,7 +330,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             System.err.println("Böyle bir kullanıcı yoktur");
         }
         return null;
@@ -311,8 +340,8 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
     @Override
     public RegisterDto deleteById(RegisterDto registerDto) {
         // Bu ID ile ilgili kullanıcı varmı ?
-        RegisterDto find= findById(registerDto.getId());
-        if(find!=null) {
+        RegisterDto find = findById(registerDto.getId());
+        if (find != null) {
             try (Connection connection = getInterfaceConnection()) {
                 // Manipulation: executeUpdate() [create, delete, update]
                 // Sorgularda  : executeQuery [list, find]
@@ -337,7 +366,7 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             System.err.println("Böyle bir kullanıcı yoktur Silme yapılamaz");
         }
         return null;

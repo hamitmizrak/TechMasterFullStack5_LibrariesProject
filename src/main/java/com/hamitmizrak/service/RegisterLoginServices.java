@@ -1,18 +1,12 @@
 package com.hamitmizrak.service;
 
+import com.hamitmizrak.dao.RegisterDao;
 import com.hamitmizrak.files.FilePathData;
 import com.hamitmizrak.controller.RegisterController;
 import com.hamitmizrak.dto.RegisterDto;
 import com.hamitmizrak.roles.ERoles;
-
 import java.util.Scanner;
 
-// Eğer sistemde ilgili email ile kullanıcı varsa sisteme giriş yapsın
-// Eğer sistemde ilgili email yoksa register olsun
-
-// Sifre masking
-// Enum Array
-// Rollere göre giriş yap
 
 public class RegisterLoginServices {
 
@@ -77,15 +71,21 @@ public class RegisterLoginServices {
             // Kayot olduktan sonra Login sayfasına geri dön
             login();
         } else {
-            // Eğer Kullanıcı Pasifse
+            // Eğer Kullanıcı Pasifse giris yapmasın
             if (registerEmailFind.getPassive() == false) {
                 System.out.println("Üyeliğiniz Pasif edilmiştir sisteme giriş yapamazsınız");
                 System.out.println("Lütfen admin'e başvurunuz.");
                 System.exit(0);
             }
 
-            // Eğer kullanıcı varsa sisteme giriş yapsın
-            if (uEmailAddress.equals(registerEmailFind.getuEmailAddress()) && uPassword.equals(registerEmailFind.getuPassword())) {
+            // Database kaydedilmis decode edilmis sifre karsilastirmak
+            RegisterDao registerDao=new RegisterDao();
+            String fistValue=uPassword;
+            String rawPassword=registerDao.generatebCryptPasswordEncoder(fistValue);
+            boolean result=registerDao.matchbCryptPassword(fistValue,registerEmailFind.getuPassword());
+
+            // Eğer kullanıcı varsa sisteme giriş yapsın    uPassword.equals(registerEmailFind.getuPassword()
+            if (uEmailAddress.equals(registerEmailFind.getuEmailAddress()) && registerDao.matchbCryptPassword(fistValue,registerEmailFind.getuPassword()) ) {
                 adminProcess(registerEmailFind);
             } else {
                 // Kullanıcının kalan hakkı
@@ -243,58 +243,37 @@ public class RegisterLoginServices {
         } //end while
     } //end method adminProcess
 
-    // CREATE FILE
-    private void specialFileCreateData() {
-        Scanner klavye = new Scanner(System.in);
-        System.out.println("Oluşturmak istediğiniz dosya adını giriniz");
-        String fileName = klavye.nextLine();
-        filePathData.specialFileCreate(fileName);
-    }
-
-    // File List , Information
-    private void fileListData() {
-        filePathData.fileList();
-    }
-
-    // File Delete
-    private void fileDeleteData() {
-        filePathData.fileIsDelete();
-    }
-
-    // File Information
-    private void fileInformation() {
-        filePathData.fileProperties();
-    }
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // METHOD
     // just member login
     private void specialHomePage() {
         System.out.println("Sadece Üyeler Bu sayfayı görebilir.");
     }
 
     // CRUD
-    // LIST
+    // USER LIST
     private void memberList() {
         registerController.list().forEach(System.out::println);
     }
 
-    // CREATE
+    // USER CREATE
     private RegisterDto memberCreate() {
         return register();
     }
 
-    // Find Id
+    // USER Find Id
     private RegisterDto memberFindById() {
         System.out.println("Lütfen Bulmak istediğiniz ID giriniz");
         return registerController.findById(new Scanner(System.in).nextLong());
     }
 
-    // Find Email
+    // USER Find Email
     private RegisterDto memberfindEmail() {
         System.out.println("Lütfen Bulmak istediğiniz email giriniz");
         return registerController.findByEmail(new Scanner(System.in).nextLine());
     }
 
-    // Update
+    // USER Update
     private RegisterDto memberUpdate() {
         Scanner klavye = new Scanner(System.in);
         RegisterDto registerDto = new RegisterDto();
@@ -330,7 +309,7 @@ public class RegisterLoginServices {
         return registerController.update(id, registerDto);
     }
 
-    // Delete
+    // USER Delete
     private RegisterDto memberDelete() {
         Scanner klavye = new Scanner(System.in);
         RegisterDto registerDto = new RegisterDto();
@@ -364,4 +343,27 @@ public class RegisterLoginServices {
             System.out.println("Sistemden Çıkış yapılmadı");
         }
     } //end logout()
+
+    // CREATE FILE
+    private void specialFileCreateData() {
+        Scanner klavye = new Scanner(System.in);
+        System.out.println("Oluşturmak istediğiniz dosya adını giriniz");
+        String fileName = klavye.nextLine();
+        filePathData.specialFileCreate(fileName);
+    }
+
+    // File List , Information
+    private void fileListData() {
+        filePathData.fileList();
+    }
+
+    // File Delete
+    private void fileDeleteData() {
+        filePathData.fileIsDelete();
+    }
+
+    // File Information
+    private void fileInformation() {
+        filePathData.fileProperties();
+    }
 } //end class

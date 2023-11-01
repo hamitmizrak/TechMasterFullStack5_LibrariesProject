@@ -22,9 +22,9 @@ public class FilePathData {
         this.id = UUID.randomUUID().toString();
         this.systemCreatedDate = new Date(System.currentTimeMillis());
         pathFileName = "\\log.txt";
-        // C:\io\techcareer\full_4
+        // C:\io\techcareer\full_3
         pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
-        // C:\\io\\techcareer\\full_4\\log.txt
+        // C:\\io\\techcareer\\full_3\\log.txt
         url = pathDirectoryName.concat(pathFileName);
         file = new File(url);
         try {
@@ -45,8 +45,6 @@ public class FilePathData {
             e.printStackTrace();
         }
     } //end constructor
-
-    // Constructor (Parametreli)
 
     // toString
     @Override
@@ -71,6 +69,7 @@ public class FilePathData {
     }
 
     // File Writer
+    // Rolles: admin(+) writer(+)
     public void logFileWriter(String email, String password) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.url, true))) {
             String data="[ "+ localeDateTime()+" ] "+email+" "+password;
@@ -97,7 +96,8 @@ public class FilePathData {
         }
     } //end Reader
 
-    // File Kendim yazacağım
+    // File Kendim yazacağım.
+    // Rolles: (admin ve Writer yetkisi var)
     public String specialFileCreate(String fileName){
         this.id = UUID.randomUUID().toString();
         this.systemCreatedDate = new Date(System.currentTimeMillis());
@@ -121,6 +121,7 @@ public class FilePathData {
     }
 
     // Dosya Listele
+    // Rolles: admin(+) writer(+)
     public void fileList(){
         File fileList=new File(FilePathUrl.MY_FILE_PATH_URL);
         for(File temp: fileList.listFiles()   ){
@@ -128,8 +129,8 @@ public class FilePathData {
         }
     }
 
-
     // File Delete
+    // Rolles: admin(+)
     public void fileIsDelete(){
         Scanner klavye=new Scanner(System.in);
         //dosya isimleri göster
@@ -146,6 +147,7 @@ public class FilePathData {
         if(chooise=='E' || chooise=='e'){
             try {
                 File fileDelete=new File(url);
+                //exists: boyle bir dosya var mı yokmu ?
                 if(fileDelete.exists()){
                     fileDelete.delete();
                     System.out.println("Dosyanız silindi");
@@ -161,6 +163,7 @@ public class FilePathData {
     }
 
     // Informartion
+    // Rolles: admin(+) writer(+)
     public void fileProperties(){
         System.out.println("Dosya Özellikler");
         Scanner klavye=new Scanner(System.in);
@@ -170,6 +173,18 @@ public class FilePathData {
         String fileName=klavye.nextLine().concat(".txt");
         pathDirectoryName = FilePathUrl.MY_FILE_PATH_URL;
         url = pathDirectoryName.concat("\\").concat(fileName);
-        System.out.println("Dosya uzantısı"+ url);
+        System.out.println("Dosya uzantısı: "+ url);
+        // File Information
+        File file1=new File(url);
+        System.out.println("PATH: "+file1.getPath());
+        System.out.println("PARENT: "+file1.getParent());
+        System.out.println("TOTAL SPACE: "+file1.getTotalSpace());
+        System.out.println("FREE SPACE: "+file1.getFreeSpace());
+        System.out.println("READ: "+file1.canRead());
+        System.out.println("WRITE: "+file1.canWrite());
+        System.out.println("EXECUTE: "+file1.canExecute());
+        System.out.println("DİZİN MİDİR ?: "+file1.isDirectory());
+        System.out.println("DOSYA MIDIR ?: "+file1.isFile());
+        System.out.println("DOSYA GİZLİ MİDİR ?: "+file1.isHidden());
     }
 }// end class FilePathData
