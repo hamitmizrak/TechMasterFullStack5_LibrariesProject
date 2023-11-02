@@ -32,16 +32,40 @@ H2DB
 ```sh
 Login
 Register 
-Üye sisteme giri? yaparken öncelikle database ilgili kay?t var m? diye bak?yor. E?er bu kullan?c? yoksa register
-sayfas?na yönlendiriyor.
-Kullan?c?lar sisteme yanl?? giri? yapt?klar?nda log dosyas? olu?turuluyor. 
-E?er Üye pasifse sisteme giri? yapamas?n bunu ancak admin aktifle?tirebilsin.
+
+Step-1 ) Üye sisteme giris yaparken öncelikle database ilgili kayit var mi diye bakiyor. Eger bu kullanici yoksa register
+sayfasina yönlendiriyor.
+
+Step-2 ) Kullanicilar sisteme yanlis giris yaptiklarinda log dosyasi olusturuluyor.  oraya yaz?yor
+  
+Step-3 ) Eger Üye pasifse sisteme giris yapamasin bunu ancak admin aktiflestirebilsin.
+  
+Step-4 ) Kullanici sisteme kayit olduktan 1 y?l sonra uyeligi  pasif olsun.
+SELECT * FROM cars.register;
+use cars;
+show events from  cars;
+drop event on_time user_is_passive
+
+-- YEAR MONTH DAY HOUR MINUTE
+CREATE EVENT IF NOT EXISTS  user_is_passive 
+ON schedule at current_timestamp() + interval 1 year
+on completion preserve
+do 
+  UPDATE `cars`.`register` SET `is_passive`=0 WHERE `id`='3';
+  
+  
+Step-5 ) 
 Dosya ekleme (writer ve admin)
 Dosya silmeyi sadece admin yapabilsin.
-3 tane rol bulunmaktad?r.
+3 tane rol bulunmaktadir.
 1-) admin 
 2-) writer 
-3-) user   
+3-) user  
+  
+Step-6 ) 
+  Dosya ekleme    ( admin[+] writer [+] )
+  Dosya Silme     ( admin[+]  )
+  Dosya listeleme ( admin[+] writer [+] ) 
 ```
 
 ```sh

@@ -108,8 +108,9 @@ public class RegisterDao implements IDaoGenerics<RegisterDto>, Serializable {
 
     public static void main(String[] args) {
         RegisterDao registerDao=new RegisterDao();
-        String fistValue="123456";
+        String fistValue="user";
         String rawPassword=registerDao.generatebCryptPasswordEncoder(fistValue);
+        System.out.println(rawPassword);
         boolean result=registerDao.matchbCryptPassword(fistValue,rawPassword);
         System.out.println(result);
     }
